@@ -12,12 +12,24 @@ When the game is over, display the following output:
 
 */
 var startingBet = document.getElementById("startingBet").value;
-var dice1=0;
-var dice2=0;
-var diceTotal=0;
-var rollCount=0;
+var dice1 = 0;
+var dice2 = 0;
+var diceTotal = 0;
+var rollCount = 0;
+var cashBalance = startingBet;
+var balanceHistory = [startingBet];
+var win = 4;
+var loss = 1;
 
-function validateItems(){
+do {
+  rollDice();
+  gameLogic();
+  while(cashBalance>0)
+  rollDice();
+  gameLogic();
+}
+
+function validateItems() {
   clearErrors();
   var bet = document.forms["startingBet"].value;
   if (bet == "" || isNaN(bet) || bet == 0) {
@@ -28,11 +40,25 @@ function validateItems(){
 
 function rollDice() {
   rollCount++;
-  dice1=Math.floor(Math.random()*6)+1;
-  dice2=Math.floor(Math.random()*6)+1;
-  diceTotal=dice1+dice2
+  dice1 = Math.floor(Math.random()*6) +1;
+  dice2 = Math.floor(Math.random()*6) +1;
+  diceTotal = dice1+dice2;
 }
 
+function gameLogic() {
+  if (diceTotal == 7) {
+    cashBalance = cashBalance+win;
+    var currentBalance = cashBalance[balanceHistory.length-1];
+    var newBalance = currentBalance +win;
+    balanceHistory.push(newBalance);
+  } else {
+    cashBalance--;
+    var currentBalance = balanceHistory[balanceHistory.length-1];
+    var newBalance = currentBalance -loss;
+    balanceHistory.push(newBalance);
+  }
+  rollCount = rollCount++;
+}
 
 function resetForm() {
   clearErrors();
