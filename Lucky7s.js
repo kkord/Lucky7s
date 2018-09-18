@@ -21,10 +21,8 @@ var balanceHistory = [startingBet];
 var win = 4;
 var loss = 1;
 
-do {
-  rollDice();
-  gameLogic();
-  while(cashBalance>0)
+
+while(cashBalance>0) {
   rollDice();
   gameLogic();
 }
@@ -71,11 +69,11 @@ function resetForm() {
 
 function displayResults() {
   document.getElementById("results").style.display="block";
-  document.getElementById("submitButton").style.display="Recalculate";
-  document.getElementById("addResult").innerText = Number(num1) + Number(num2);
-  document.getElementById("subtractResult").innerText = num1 - num2;
-  document.getElementById("multiplyResult").innerText = num1 * num2;
-  document.getElementById("divideResult").innerText = num1 / num2;
+  // document.getElementById("submitButton").style.display="Recalculate";
+  document.getElementById("startingBet").innerText = startingBet;
+  document.getElementById("rollsTillBroke").innerText = "";
+  document.getElementById("highestAmount").innerText = "";
+  document.getElementById("rollsTillHigh").innerText = "";
   // return false so the form doesn't submit and can see the results
   return false;
 }
