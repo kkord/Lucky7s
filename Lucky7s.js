@@ -20,8 +20,12 @@ var cashBalance = startingBet;
 var balanceHistory = [startingBet];
 var win = 4;
 var loss = 1;
+var balanceHigh = 0;
+var rollsTillHigh = 0;
 
-
+do {
+  validateItems();
+}
 while(cashBalance>0) {
   rollDice();
   gameLogic();
@@ -66,13 +70,12 @@ function resetForm() {
   document.forms["numberFun"]["num1"].focus();
 }
 
-
 function displayResults() {
   document.getElementById("results").style.display="block";
   // document.getElementById("submitButton").style.display="Recalculate";
   document.getElementById("startingBet").innerText = startingBet;
   document.getElementById("rollsTillBroke").innerText = "";
-  document.getElementById("highestAmount").innerText = "";
+  document.getElementById("highestAmount").innerText = balanceHigh = Math.max.apply(Math, balanceHistory);
   document.getElementById("rollsTillHigh").innerText = "";
   // return false so the form doesn't submit and can see the results
   return false;
